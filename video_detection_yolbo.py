@@ -6,6 +6,7 @@ from keras_retinanet.utils.visualization import draw_box, draw_caption
 from keras_retinanet.utils.colors import label_color
 from keras_retinanet.utils.gpu import setup_gpu
 from look_back import *
+from visualization import *
 
 
 def run_yolbo(video_path, model, labels_to_names, video_output_name, output="video", fps=30, frames=None):
@@ -60,20 +61,10 @@ def run_yolbo(video_path, model, labels_to_names, video_output_name, output="vid
                 num_boxes += 1
                 b = box.astype(int)
                 draw_box(draw, b, color=color)
-
-                b = np.array(box).astype(int)
-                font = cv2.FONT_HERSHEY_PLAIN
                 label_name = labels_to_names[label]
-                (width, height), baseline = cv2.getTextSize(label_name, font, 1, 1)
-                cv2.rectangle(draw, (b[0], b[1] - height - baseline - 5), (b[0] + width + 5, b[1]), color, -1,
-                              cv2.LINE_AA)
-                cv2.putText(draw, label_name, (b[0] + 3, b[1] - baseline), font, 1, (0, 0, 0), 1)
-            cv2.putText(draw, 'Frame: ' + str(step), (20, 40), cv2.FONT_HERSHEY_PLAIN, 3, (0, 0, 0), 5)
-            cv2.putText(draw, 'Frame: ' + str(step), (20, 40), cv2.FONT_HERSHEY_PLAIN, 3, (255, 255, 255), 2)
-            cv2.putText(draw, str(num_boxes) + ' Boxes', (20, 90), cv2.FONT_HERSHEY_PLAIN, 3, (0, 0, 0), 5)
-            cv2.putText(draw, str(num_boxes) + ' Boxes', (20, 90), cv2.FONT_HERSHEY_PLAIN, 3, (255, 255, 255), 2)
-            cv2.putText(draw, 'Y.O.L.B.O.', (20, frame_height - 20), cv2.FONT_HERSHEY_PLAIN, 2, (0, 0, 0), 4)
-            cv2.putText(draw, 'Y.O.L.B.O.', (20, frame_height - 20), cv2.FONT_HERSHEY_PLAIN, 2, (255, 255, 255), 2)
+                draw_label(draw, label_name, box, color)
+
+            annotate_frame(draw, step, frame_height, num_boxes)
             previous_matrix = matrix
             if output == 'video':
                 out.write(draw)
