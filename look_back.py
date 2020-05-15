@@ -23,14 +23,14 @@ def centerBox(box):
     return cb
 
 
-def look_back(box, label, previous_probability_matrix):
+def look_back(box, label, previous_matrix):
 
     cb = centerBox(box)
     cb = cb.astype(int)
-    previous_probabilities = []
+    previous_scores = []
     for x in range(cb[0], cb[2] + 1):
         for y in range(cb[1], cb[3] + 1):
-            previous_probabilities.append(previous_probability_matrix[label, y, x])
-    best_previous_score = max(previous_probabilities)
+            previous_scores.append(previous_matrix[label, y, x])
+    best_previous_score = max(previous_scores)
     return best_previous_score
 
