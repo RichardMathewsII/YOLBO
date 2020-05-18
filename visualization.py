@@ -1,6 +1,3 @@
-import numpy as np
-import cv2
-
 
 def draw_label(frame, label, box, color):
 
