@@ -58,7 +58,7 @@ def run_retinanet(model, frame, step, frame_height, frame_width, labels_to_names
         num_labels = len(labels_to_names)
         draw, detection_matrix, num_boxes = run_yolbo(draw, boxes, scores, labels, labels_to_names, step,
                                                       previous_matrix, num_labels, frame_height, frame_width)
-        annotate_frame(draw, step, frame_height, num_boxes)
+        annotate_frame(draw, step, frame_height, num_boxes, yolbo=True)
 
         return draw, detection_matrix
 
