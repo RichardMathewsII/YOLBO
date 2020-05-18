@@ -1,3 +1,10 @@
+from cv2 import VideoCapture
+from cv2 import VideoWriter
+from cv2 import VideoWriter_fourcc
+from cv2 import imwrite
+from cv2 import waitKey
+from cv2 import destroyAllWindows
+
 def detect_objects_in_video(video_path, model, labels_to_names, video_output_name, output="video", fps=30, frames=None, yolbo=False):
     cap = VideoCapture(video_path)
     if not cap.isOpened():
