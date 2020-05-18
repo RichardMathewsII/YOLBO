@@ -1,5 +1,5 @@
 def detect_objects_in_video(video_path, model, labels_to_names, video_output_name, output="video", fps=30, frames=None, yolbo=False):
-    cap = cv2.VideoCapture(video_path)
+    cap = VideoCapture(video_path)
     if not cap.isOpened():
         return print("Error opening video file")
     if output == "frames":
@@ -9,7 +9,7 @@ def detect_objects_in_video(video_path, model, labels_to_names, video_output_nam
     frame_width = int(cap.get(3))
     frame_height = int(cap.get(4))
 
-    out = cv2.VideoWriter(video_output_name, cv2.VideoWriter_fourcc('M', 'J', 'P', 'G'), fps,
+    out = VideoWriter(video_output_name, VideoWriter_fourcc('M', 'J', 'P', 'G'), fps,
                           (frame_width, frame_height))
     step = 1
     detection_matrix = None
@@ -25,13 +25,13 @@ def detect_objects_in_video(video_path, model, labels_to_names, video_output_nam
                 out.write(draw)
             if output == 'frames':
                 if step in frames:
-                    cv2.imwrite('frame'+str(step)+'.jpg', draw)
+                    imwrite('frame'+str(step)+'.jpg', draw)
             step += 1
-            if cv2.waitKey(1) & 0xFF == ord('q'):
+            if waitKey(1) & 0xFF == ord('q'):
                 break
         else:
             break
 
     cap.release()
     out.release()
-    cv2.destroyAllWindows()
+    destroyAllWindows()
