@@ -1,4 +1,3 @@
-import numpy as np
 
 def bb_center(box):
 
