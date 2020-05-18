@@ -1,8 +1,18 @@
+from look_back import *
+from keras_retinanet.utils.colors import label_color
+from keras_retinanet.utils.visualization import draw_box
+from visualization import *
+from keras_retinanet.utils.image import preprocess_image, resize_image
+from cv2 import cvtColor
+from cv2 import COLOR_BGR2RGB
+from numpy import expand_dims
+from numpy import zeros
+
 
 def run_yolbo(frame, boxes, scores, labels, labels_to_names, step, previous_matrix, num_labels, frame_height,
               frame_width):
     num_boxes = 0
-    detection_matrix = np.zeros((num_labels, frame_height, frame_width))
+    detection_matrix = zeros((num_labels, frame_height, frame_width))
     # visualize detections
     for box, score, label in zip(boxes[0], scores[0], labels[0]):
         # scores are sorted so we can break
@@ -34,14 +44,14 @@ def run_retinanet(model, frame, step, frame_height, frame_width, labels_to_names
     if yolbo is True:
         # copy to draw on
         draw = frame.copy()
-        draw = cv2.cvtColor(draw, cv2.COLOR_BGR2RGB)
+        draw = cvtColor(draw, COLOR_BGR2RGB)
 
         # preprocess image for network
         image = preprocess_image(frame)
         image, scale = resize_image(image)
 
         # process image
-        boxes, scores, labels = model.predict_on_batch(np.expand_dims(image, axis=0))
+        boxes, scores, labels = model.predict_on_batch(expand_dims(image, axis=0))
 
         # correct for image scale
         boxes /= scale
@@ -55,14 +65,14 @@ def run_retinanet(model, frame, step, frame_height, frame_width, labels_to_names
     else:
         # copy to draw on
         draw = frame.copy()
-        draw = cv2.cvtColor(draw, cv2.COLOR_BGR2RGB)
+        draw = cvtColor(draw, COLOR_BGR2RGB)
 
         # preprocess image for network
         image = preprocess_image(frame)
         image, scale = resize_image(image)
 
         # process image
-        boxes, scores, labels = model.predict_on_batch(np.expand_dims(image, axis=0))
+        boxes, scores, labels = model.predict_on_batch(expand_dims(image, axis=0))
         num_boxes = 0
         # correct for image scale
         boxes /= scale

@@ -1,3 +1,5 @@
+from numpy import zeros
+
 
 def bb_center(box):
 
@@ -14,7 +16,7 @@ def centerBox(box):
     center_x, center_y, width, height = bb_center(box)
     centerBoxHeight = height//3
     centerBoxWidth = width//3
-    cb = np.zeros(4)
+    cb = zeros(4)
     cb[0] = center_x - centerBoxWidth//2
     cb[1] = center_y - centerBoxHeight//2
     cb[2] = center_x + centerBoxWidth//2

@@ -4,6 +4,8 @@ from cv2 import VideoWriter_fourcc
 from cv2 import imwrite
 from cv2 import waitKey
 from cv2 import destroyAllWindows
+from object_detection import *
+
 
 def detect_objects_in_video(video_path, model, labels_to_names, video_output_name, output="video", fps=30, frames=None, yolbo=False):
     cap = VideoCapture(video_path)
@@ -16,8 +18,7 @@ def detect_objects_in_video(video_path, model, labels_to_names, video_output_nam
     frame_width = int(cap.get(3))
     frame_height = int(cap.get(4))
 
-    out = VideoWriter(video_output_name, VideoWriter_fourcc('M', 'J', 'P', 'G'), fps,
-                          (frame_width, frame_height))
+    out = VideoWriter(video_output_name, VideoWriter_fourcc('M', 'J', 'P', 'G'), fps, (frame_width, frame_height))
     step = 1
     detection_matrix = None
     while cap.isOpened():
