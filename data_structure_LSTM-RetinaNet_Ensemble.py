@@ -14,7 +14,7 @@ def preprocess_data(video_file, num_labels):
     data_structure = np.zeros((1, 3, row_length))
     while cap.isOpened():
         ret, frame = cap.read()
-        if ret and (i%10==0):
+        if ret:
             i += 1
             # preprocess image for network
             image = preprocess_image(frame)
