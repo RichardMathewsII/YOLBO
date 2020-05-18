@@ -1,3 +1,4 @@
+import cv2
 
 def detect_objects_in_video(video_path, model, labels_to_names, video_output_name, output="video", fps=30, frames=None,
                             yolbo=False):
