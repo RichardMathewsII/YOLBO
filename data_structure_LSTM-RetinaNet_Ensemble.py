@@ -1,3 +1,10 @@
+"""
+This file is the implementation of the data structure proposed in the paper, section 5, for training an LSTM-RetinaNet
+Ensemble. This file is not related to YOLBO and should be ignored to anyone working with the YOLBO-RetinaNet model
+for object detection in video data.
+"""
+
+
 def preprocess_data(video_file, num_labels):
     """
     transforms video into data to feed into deep RNN
@@ -29,9 +36,9 @@ def preprocess_data(video_file, num_labels):
             boxes /= scale
             encoded_matrix = np.zeros((num_labels, frame_height, frame_width, 1))
             for box, score, label in zip(boxes[0], scores[0], labels[0]):
-              center_x, center_y, width, height = bb_center(box)
-              if score > 0.4:
-                encoded_matrix[label, center_y, center_x] = width * height
+                center_x, center_y, width, height = bb_center(box)
+                if score > 0.4:
+                    encoded_matrix[label, center_y, center_x] = width * height
             matrix = np.zeros((3, frame_height, frame_width, 1))
             # people movement
             matrix[0] = encoded_matrix[0] + encoded_matrix[24] + encoded_matrix[26] + encoded_matrix[28]
