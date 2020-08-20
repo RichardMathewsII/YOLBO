@@ -1,3 +1,6 @@
+"""
+Perform object detection using RetinaNet on video with or without YOLBO
+"""
 from cv2 import VideoCapture
 from cv2 import VideoWriter
 from cv2 import VideoWriter_fourcc
@@ -7,7 +10,20 @@ from cv2 import destroyAllWindows
 from object_detection import *
 
 
-def detect_objects_in_video(video_path, model, labels_to_names, video_output_name, output="video", fps=30, frames=None, yolbo=False):
+def detect_objects_in_video(video_path, model, labels_to_names, video_output_name, output="video", fps=30, frames=None,
+                            yolbo=False):
+    """
+    Perform object detection on video data
+    :param video_path: file path to video (str)
+    :param model: pretrained RetinaNet model
+    :param labels_to_names: dictionary mapping integer labels to string names
+    :param video_output_name: output video file (str) to be written
+    :param output: either 'video' for annotated video or 'frames' for specific annotated frames
+    :param fps: frames per second of video
+    :param frames: list of integers representing the annotated frames to write (only if output='frames')
+    :param yolbo: True to run YOLBO (defaults to False)
+    :return: annotated video file (output='video'), or annotated image files (output='frames')
+    """
     cap = VideoCapture(video_path)
     if not cap.isOpened():
         return print("Error opening video file")
