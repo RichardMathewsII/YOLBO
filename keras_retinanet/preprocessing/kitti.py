@@ -85,7 +85,7 @@ class KittiGenerator(Generator):
         self.images = []
         for i, fn in enumerate(os.listdir(label_dir)):
             label_fp = os.path.join(label_dir, fn)
-            image_fp = os.path.join(image_dir, fn.replace('.txt', '.png'))
+            image_fp = os.path.join(image_dir, fn.replace('.gitignore', '.png'))
 
             self.images.append(image_fp)
 
